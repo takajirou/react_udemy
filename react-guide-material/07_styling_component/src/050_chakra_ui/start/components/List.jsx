@@ -1,19 +1,40 @@
-const List = ({todos, deleteTodo}) => {
+import { HStack, IconButton, StackDivider, VStack, Text } from "@chakra-ui/react";
+import { VscCheck } from "react-icons/vsc";
+
+const List = ({ todos, deleteTodo }) => {
     const complete = (id) => {
-        deleteTodo(id)
-    }
+        deleteTodo(id);
+    };
     return (
-        <div>
-            {todos.map(todo => {
+        <VStack
+            divider={<StackDivider />}
+            width="80%"
+            // color={{ sm: "red.600", md: "blue.600", lg: "green.500", xl: "red.500" }}
+            bgColor="white"
+            borderColor="blackAlpha.100"
+            borderWidth="1px"
+            borderRadius="3px"
+            p={5}
+            alignItems="start"
+        >
+            {todos.map((todo) => {
                 return (
-                    <div key={todo.id}>
-                        <button onClick={() => complete(todo.id)}>完了</button>
-                        <span>{todo.content}</span>
-                    </div>
-                )
+                    <HStack key={todo.id} spacing="5">
+                        <IconButton
+                            onClick={() => complete(todo.id)}
+                            icon={<VscCheck />}
+                            isRound
+                            bgColor="cyan.100"
+                            opacity="0.7"
+                        >
+                            完了
+                        </IconButton>
+                        <Text>{todo.content}</Text>
+                    </HStack>
+                );
             })}
-        </div>
+        </VStack>
     );
-}
+};
 
 export default List;
