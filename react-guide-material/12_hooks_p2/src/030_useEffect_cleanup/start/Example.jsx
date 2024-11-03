@@ -1,25 +1,43 @@
 import { useEffect, useState } from "react";
 
 const Example = () => {
-  const [time, setTime] = useState(0);
+    const [isDisp, setIsDisp] = useState(true);
 
-  useEffect(() => {
-    console.log('useEffect is called');
-    window.setInterval(() => {
-      setTime(prev => prev + 1);
-    }, 1000);
-  }, [])
-  
-  useEffect(() => {
-    document.title = 'counter:' + time;
-    window.localStorage.setItem('time-key-end', time)
-  }, [time]);
+    return (
+        <>
+            {isDisp && <Timer />}
+            <button onClick={() => setIsDisp((prev) => !prev)}>トグル</button>
+        </>
+    );
+};
+const Timer = () => {
+    const [time, setTime] = useState(0);
 
-  return (
-    <h3>
-      <time>{time}</time>
-      <span>秒経過</span>
-    </h3>
+    useEffect(() => {
+        console.log("init");
+        window.setInterval(() => {
+            setTime((prev) => prev + 1);
+        }, 1000);
+        return () => {
+            console.log("end");
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log("updated");
+        document.title = "counter:" + time;
+        window.localStorage.setItem("time-key-end", time);
+
+        return () => {
+            console.log("updated end");
+        };
+    }, [time]);
+
+    return (
+        <h3>
+            <time>{time}</time>
+            <span>秒経過</span>
+        </h3>
     );
 };
 
