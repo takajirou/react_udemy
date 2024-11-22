@@ -1,6 +1,16 @@
+.btnWrap {
+    display: flex;
+    width: 65vw;
+    margin: auto;
+    margin-top: 20px;
+}
+
 .button {
     width: 115px;
     height: 54px;
     background: #efefef;
-    border: solid 1px #000;
+    border: solid 2px #373737;
+    border-radius: 6px;
+    margin: 0 5px;
+    cursor: pointer;
 }
