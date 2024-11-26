@@ -4,7 +4,11 @@ import style from "@styles/componentStyles/DayOfWeek.module.scss";
 
 // import React, { useState, useEffect } from "react";
 
-export default function DayOfWeek() {
+type Props = {
+    selectedClassroom: number; // 選択された教室番号
+};
+
+export default function DayOfWeek({ selectedClassroom }: Props) {
     const days = [/*"日曜日",*/ "月曜日", "火曜日", "水曜日", "木曜日", "金曜日" /*, "土曜日"*/];
 
     // const [data, setData] = useState<{ weekday?: number } | null>(null);
@@ -61,6 +65,7 @@ export default function DayOfWeek() {
                     <button className={`${style.button}`} key={day} onClick={handleClick}>
                         {/* {days[weekday === index ? index : (index + weekday) % 7]} */}
                         {day}
+                        {selectedClassroom}
                     </button>
                 ))}
             </div>
