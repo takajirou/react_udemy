@@ -1,5 +1,3 @@
-"use client";
-
 import style from "@styles/componentStyles/DayOfWeek.module.scss";
 
 // import React, { useState, useEffect } from "react";
@@ -65,7 +63,6 @@ export default function DayOfWeek({ selectedClassroom }: Props) {
                     <button className={`${style.button}`} key={day} onClick={handleClick}>
                         {/* {days[weekday === index ? index : (index + weekday) % 7]} */}
                         {day}
-                        {selectedClassroom}
                     </button>
                 ))}
             </div>
