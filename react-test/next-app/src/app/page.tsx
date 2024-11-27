@@ -21,7 +21,7 @@ export default function Home() {
                 }
                 const { data } = await res.json();
                 setClassrooms(data);
-                setSelectedClassroom(data[0]); // 最初の教室をデフォルトで選択
+                setSelectedClassroom(data[0]);
             } catch (error) {
                 console.error(error);
             }

@@ -7,7 +7,7 @@ type Props = {
 
 const Select = ({ options, onChange }: Props) => {
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        onChange(Number(event.target.value)); // 親に選択された値を通知
+        onChange(Number(event.target.value));
     };
     return (
         <select className={style.select} onChange={handleChange}>
