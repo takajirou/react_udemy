@@ -1,8 +1,8 @@
 "use client";
 
-import style from "@styles/appStyles/page.module.css";
+import styles from "@styles/appStyles/page.module.css";
 import Select from "@/components/Select";
-import DayOfWeek from "@/components/DayOfWeek";
+import TimeTable from "@/components/TimeTable";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -36,12 +36,12 @@ export default function Home() {
 
     return (
         <div>
-            <h1 className={style.title}>空き教室を探す</h1>
+            <h1 className={styles.title}>空き教室を探す</h1>
             <Select
                 options={classrooms}
                 onChange={(selectedOption) => setSelectedClassroom(selectedOption)}
             />
-            {selectedClassroom !== null && <DayOfWeek selectedClassroom={selectedClassroom} />}
+            {selectedClassroom !== null && <TimeTable selectedClassroom={selectedClassroom} />}
         </div>
     );
 }

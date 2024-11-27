@@ -1,25 +1,32 @@
-import style from "@styles/componentStyles/DayOfWeek.module.scss";
+import React from "react";
+import styles from "@styles/componentStyles/DayOfWeek.module.scss";
 
-type Props = {
-    selectedClassroom: number;
+type DayOfWeekProps = {
+    onDayClick: (index: number) => void;
 };
 
-export default function DayOfWeek({ selectedClassroom }: Props) {
-    const days = [/*"日曜日",*/ "月曜日", "火曜日", "水曜日", "木曜日", "金曜日" /*, "土曜日"*/];
+export default function DayOfWeek({ onDayClick }: DayOfWeekProps) {
+    const days = ["月曜日", "火曜日", "水曜日", "木曜日", "金曜日"];
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const buttons = document.querySelectorAll(`.${style.button}`);
-        buttons.forEach((button) => button.classList.remove(style.selected));
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
+        const buttons = document.querySelectorAll(`.${styles.button}`);
+        buttons.forEach((button) => button.classList.remove(styles.selected));
 
         const clickedButton = event.currentTarget;
-        clickedButton.classList.add(style.selected);
+        clickedButton.classList.add(styles.selected);
+
+        onDayClick(index);
     };
 
     return (
-        <div className={style.container}>
-            <div className={style.btnWrap}>
+        <div className={styles.container}>
+            <div className={styles.btnWrap}>
                 {days.map((day, index) => (
-                    <button className={`${style.button}`} key={day} onClick={handleClick}>
+                    <button
+                        className={`${styles.button}`}
+                        key={day}
+                        onClick={(event) => handleClick(event, index)}
+                    >
                         {day}
                     </button>
                 ))}
