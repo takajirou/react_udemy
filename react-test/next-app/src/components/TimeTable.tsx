@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function TimeTable({ selectedClassroom }: Props) {
-    const [selectedDayIndex, setSelectedDayIndex] = useState<number | null>(null);
+    const [selectedDayIndex, setSelectedDayIndex] = useState(0);
 
     const handleDayClick = (index: number) => {
         setSelectedDayIndex(index);
@@ -17,7 +17,10 @@ export default function TimeTable({ selectedClassroom }: Props) {
         <div>
             <DayOfWeek onDayClick={handleDayClick} />
             <h2>空き教室</h2>
-            <ClassWork selectedClassroom={selectedClassroom} selectedDayIndex={selectedDayIndex} />
+            <ClassWork
+                selectedClassroom={selectedClassroom}
+                selectedDayIndex={selectedDayIndex + 1}
+            />
         </div>
     );
 }
