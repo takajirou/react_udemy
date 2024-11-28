@@ -14,8 +14,7 @@ export default function ClassWork(props: Props) {
         const fetchClassWork = async () => {
             try {
                 const res = await fetch(
-                    `https://click.ecc.ac.jp/ecc/webdesign/wdct/api/v1/openrooms/timetables/?classroom=${props.selectedClassroom}&weekday=${props.selectedDayIndex}`,
-                    { cache: "no-store" }
+                    `https://click.ecc.ac.jp/ecc/webdesign/wdct/api/v1/openrooms/timetables/?classroom=${props.selectedClassroom}&weekday=${props.selectedDayIndex}`
                 );
                 if (!res.ok) {
                     throw new Error("データの取得に失敗しました");

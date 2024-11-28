@@ -13,8 +13,7 @@ export default function Home() {
         const fetchClassrooms = async () => {
             try {
                 const res = await fetch(
-                    "https://click.ecc.ac.jp/ecc/webdesign/wdct/api/v1/openrooms/classrooms/",
-                    { cache: "no-store" }
+                    "https://click.ecc.ac.jp/ecc/webdesign/wdct/api/v1/openrooms/classrooms/"
                 );
                 if (!res.ok) {
                     throw new Error("データの取得に失敗しました");
