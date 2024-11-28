@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@styles/componentStyles/ClassWork.module.scss";
 
 type Props = {
@@ -22,11 +21,16 @@ export default function ClassWork(props: Props) {
                     throw new Error("データの取得に失敗しました");
                 }
                 const json = await res.json();
-                const periods = json.data[0].week[0].periods;
+                const periods = json.data?.[0]?.week?.[0]?.periods || [];
+                console.log("Extracted periods:", periods);
+
+                if (periods.length === 0) {
+                    console.warn("Periods data is empty or undefined");
+                }
                 const fetchedSubjects = periods.map(
                     (period: { subject: string }) => period.subject
                 );
-                const fetchedPeriods = periods.map((period: { period: string }) => period.period);
+                const fetchedPeriods = periods.map((period: { period: number }) => period.period);
 
                 setSubjects(fetchedSubjects);
                 setPeriods(fetchedPeriods);
