@@ -1,47 +1,41 @@
-"use client";
+import React, { useEffect, useState } from "react";
+import styles from "@styles/componentStyles/DayOfWeek.module.scss";
 
-import style from "@styles/componentStyles/DayOfWeek.module.scss";
-import { useState } from "react";
+type DayOfWeekProps = {
+    onDayClick: (index: number) => void;
+};
 
-export default function DayOfWeek() {
+export default function DayOfWeek({ onDayClick }: DayOfWeekProps) {
     const days = ["月曜日", "火曜日", "水曜日", "木曜日", "金曜日"];
+    const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-    const [buttonColors, setButtonColors] = useState(
-        days.reduce((acc, day) => {
-            acc[day] = { buttonColor: "#efefef", textColor: "#373737" };
-            return acc;
-        }, {} as { [key: string]: { buttonColor: string; textColor: string } })
-    );
-
-    const handleClick = (day: string) => {
-        setButtonColors((prevState) => {
-            const newState = { ...prevState };
-            for (const key in newState) {
-                newState[key] = { buttonColor: "#efefef", textColor: "#373737" };
-            }
-            newState[day] = {
-                buttonColor: newState[day].buttonColor === "#efefef" ? "#373737" : "#efefef",
-                textColor: newState[day].textColor === "#373737" ? "#efefef" : "#373737",
-            };
-            return newState;
-        });
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
+        setSelectedIndex(index);
+        onDayClick(index);
     };
 
+    useEffect(() => {
+        const buttons = document.querySelectorAll(`.${styles.button}`);
+        if (buttons[selectedIndex]) {
+            buttons[selectedIndex].classList.add(styles.selected);
+        }
+    }, [selectedIndex]);
+
     return (
-        <div className={style.btnWrap}>
-            {days.map((day) => (
-                <button
-                    className={style.button}
-                    key={day}
-                    style={{
-                        backgroundColor: buttonColors[day].buttonColor,
-                        color: buttonColors[day].textColor,
-                    }}
-                    onClick={() => handleClick(day)} // ボタンごとにクリック処理を渡す
-                >
-                    {day}
-                </button>
-            ))}
+        <div className={styles.container}>
+            <div className={styles.btnWrap}>
+                {days.map((day, index) => (
+                    <button
+                        className={`${styles.button} ${
+                            index === selectedIndex ? styles.selected : ""
+                        }`}
+                        key={day}
+                        onClick={(event) => handleClick(event, index)}
+                    >
+                        {day}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 }
