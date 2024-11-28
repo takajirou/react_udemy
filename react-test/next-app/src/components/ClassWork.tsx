@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useState } from "react";
 
 type Props = {
     selectedClassroom: number;
@@ -6,6 +7,8 @@ type Props = {
 };
 
 export default function ClassWork(props: Props) {
+    const [subjects, setSubjects] = useState<string[]>([]);
+
     useEffect(() => {
         const fetchClassWork = async () => {
             try {
@@ -16,8 +19,12 @@ export default function ClassWork(props: Props) {
                 if (!res.ok) {
                     throw new Error("データの取得に失敗しました");
                 }
-                const data = await res.json();
-                console.log("取得したデータ:", data);
+                const json = await res.json();
+                const periods = json.data[0].week[0].periods;
+                const fetchedSubjects = periods.map(
+                    (period: { subject: string }) => period.subject
+                );
+                setSubjects(fetchedSubjects);
             } catch (error) {
                 console.error("エラー:", error);
             }
@@ -27,9 +34,9 @@ export default function ClassWork(props: Props) {
 
     return (
         <div>
-            教室{props.selectedClassroom}
-            <br />
-            曜日{props.selectedDayIndex}
+            {subjects.map((subject, index) => (
+                <p key={index}>{subject}</p>
+            ))}
         </div>
     );
 }
