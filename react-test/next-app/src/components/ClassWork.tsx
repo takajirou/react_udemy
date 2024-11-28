@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import styles from "@styles/componentStyles/ClassWork.module.scss";
 
 type Props = {
     selectedClassroom: number;
@@ -8,6 +9,7 @@ type Props = {
 
 export default function ClassWork(props: Props) {
     const [subjects, setSubjects] = useState<string[]>([]);
+    const [periods, setPeriods] = useState<number[]>([]);
 
     useEffect(() => {
         const fetchClassWork = async () => {
@@ -24,7 +26,10 @@ export default function ClassWork(props: Props) {
                 const fetchedSubjects = periods.map(
                     (period: { subject: string }) => period.subject
                 );
+                const fetchedPeriods = periods.map((period: { period: string }) => period.period);
+
                 setSubjects(fetchedSubjects);
+                setPeriods(fetchedPeriods);
             } catch (error) {
                 console.error("エラー:", error);
             }
@@ -33,9 +38,12 @@ export default function ClassWork(props: Props) {
     }, [props.selectedClassroom, props.selectedDayIndex]);
 
     return (
-        <div>
+        <div className={styles.subjectsWrap}>
             {subjects.map((subject, index) => (
-                <p key={index}>{subject}</p>
+                <div className={styles.subjects} key={index}>
+                    <p>{periods[index]}限</p>
+                    <p>{subject}</p>
+                </div>
             ))}
         </div>
     );
